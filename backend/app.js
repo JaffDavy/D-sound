@@ -3,7 +3,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'; 
-import indexRouter from './routes/index.js';
+import loginRouter from './routes/login.js';
+import registrationRouter from './routes/registration.js';
 import pool from './config/config.js';
 
 dotenv.config();
@@ -17,7 +18,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Routes
-app.use('/index', indexRouter);
+app.use('/login', loginRouter)
+app.use('/registration', registrationRouter)
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -38,5 +40,10 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+pool.connect()
+  .then(() => console.log('Connected to the database'))
+  .catch(err => console.error('Database connection error:', err));
+
 
 export default app;
