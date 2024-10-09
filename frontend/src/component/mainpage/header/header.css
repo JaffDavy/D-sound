@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    height: 5vh;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.header__search {
+    width: 30vw;
+    padding: 5px 10px;
+    border-radius: 25px;
+    border: none;
+    background-color: #333;
+    color: white;
+}
+
+.header__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}

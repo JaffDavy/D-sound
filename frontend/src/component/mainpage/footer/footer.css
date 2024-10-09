@@ -1,0 +1,24 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+    gap: 2rem;
+}
+
+.footer button {
+    background-color: #1db954;
+    display: flex;
+    justify-content: center;
+    border: none;
+    width: 7vw;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}
