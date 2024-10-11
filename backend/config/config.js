@@ -1,23 +1,23 @@
-import pg from "pg";
+import pkg from 'pg'; // Import the 'pg' module as a default import
+const { Pool } = pkg; // Destructure Pool from the imported package
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // Load environment variables
 
-const { Pool } = pg;
-
+// Configure the connection pool
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL, // Use DATABASE_URL if available
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false, // Conditional SSL for Render
 });
 
+// Test the connection
 pool
   .connect()
   .then(() => {
-    console.log("Connected to the database on port 5432");
+    console.log("Connected to the database successfully");
   })
-  .catch((err) => console.error(err));
+  .catch((err) => {
+    console.error("Error connecting to the database:", err);
+  });
 
 export default pool;

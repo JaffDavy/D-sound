@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './registration.css';
 
 export const Registration = (props) => {
@@ -7,6 +8,7 @@ export const Registration = (props) => {
     const [username, setUserName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate(); // Initialize navigate
 
     // Function to validate password strength
     const validatePassword = (password) => {
@@ -54,7 +56,11 @@ export const Registration = (props) => {
                 return;
             }
 
-            setSuccessMessage('Registration successful! You can now log in.');
+            setSuccessMessage('Registration successful! Redirecting to Home page...');
+            
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
         } catch (error) {
             setErrorMessage('An error occurred. Please try again.');
         }

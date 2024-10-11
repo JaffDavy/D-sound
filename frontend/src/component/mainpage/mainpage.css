@@ -1,0 +1,46 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app__body {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  overflow-y: auto;
+}
+
+/* Media Queries for responsiveness */
+
+/* Mobile screens */
+@media (max-width: 600px) {
+  .app {
+    flex-direction: column; /* Stack everything vertically */
+  }
+
+  .app__body {
+    flex-direction: column; /* Stack content vertically on small screens */
+  }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .app__body {
+    flex-direction: row; /* Keep content side-by-side on tablets */
+  }
+}
+
+/* Laptops and desktops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .app__body {
+    flex-direction: row; /* Normal side-by-side layout for larger screens */
+  }
+}
+
+/* Large screens (1441px and up) */
+@media (min-width: 1441px) {
+  .app__body {
+    flex-direction: row; /* Maintain the layout for larger screens */
+  }
+}
