@@ -1,3 +1,4 @@
+/* Base (mobile first) styles */
 .footer {
     position: fixed;
     bottom: 0;
@@ -7,18 +8,75 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
     color: white;
-    gap: 2rem;
+    gap: 1rem; /* Smaller gap for mobile */
+    height: 8vh; /* Larger height for mobile for easier interaction */
+    padding: 10px; /* Add padding for mobile */
+}
+
+.audiocontrols {
+    display: flex;
+    gap: 0.5rem; /* Reduced gap on smaller screens */
+    margin-bottom: 1rem;
 }
 
 .footer button {
-    background-color: #1db954;
+    background-color: black;
     display: flex;
     justify-content: center;
+    align-items: center; /* Center the icon within the button */
     border: none;
-    width: 7vw;
-    border-radius: 25px;
+    width: 12vw; /* Larger buttons on mobile for easier tapping */
+    border-radius: 50px; /* More rounded for mobile */
     color: white;
     cursor: pointer;
+    height: 8vh; /* Taller buttons on mobile */
+    font-size: 1rem; /* Adjust font size */
+}
+
+/* Tablet (min-width: 768px) */
+@media (min-width: 768px) {
+    .footer {
+        gap: 2rem; /* Increase gap on tablets */
+        height: 6vh; /* Slightly smaller height for tablets */
+    }
+
+    .audiocontrols {
+        gap: 1rem; /* Increase gap between controls */
+        margin-bottom: 1.5rem;
+    }
+
+    .footer button {
+        width: 8vw; /* Adjust button width */
+        height: 6vh; /* Adjust button height */
+        font-size: 1.1rem; /* Increase font size for better readability */
+    }
+}
+
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .footer {
+        gap: 2.5rem; /* Larger gap between elements */
+        height: 5vh; /* Smaller height for desktop */
+    }
+
+    .footer button {
+        width: 5vw; /* Smaller button width on desktop */
+        height: 5vh; /* Consistent button height */
+        font-size: 1.2rem; /* Larger font size */
+    }
+}
+
+/* Large screens and TVs (min-width: 1440px) */
+@media (min-width: 1440px) {
+    .footer {
+        gap: 3rem; /* Even larger gap for large screens */
+        height: 4vh; /* Smaller height for large screens */
+    }
+
+    .footer button {
+        width: 4vw; /* Adjust button width for large screens */
+        height: 5vh;
+        font-size: 1.3rem; /* Larger font size */
+    }
 }

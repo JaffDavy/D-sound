@@ -1,13 +1,279 @@
+/* General styling for the main component */
 .main {
-    flex-grow: 1;
-    background-color: #121212;
-    color: white;
-    padding: 20px;
-    margin-left: 10rem;
+  padding: 20px;
+  background-color: #121212;
+  color: #fff;
+  min-height: 100vh;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-left: 10rem;
+  margin-top: 2rem;
+}
+
+/* Search Input Field */
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  background-color: #333;
+  color: white;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* Search Results */
+.search-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #282828;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-result-item:hover {
+  background-color: #1db954;
+  transform: scale(1.03);
+}
+
+.search-result-cover {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.search-result-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-name {
+  font-weight: bold;
+  color: #fff;
+}
+
+.search-result-artist {
+  color: #b3b3b3;
+}
+
+/* Main Songs (Discover Weekly) */
+.songs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  background-color: black;
+}
+
+.song-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
+}
+
+.song-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.album-cover {
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+}
+
+.song-item p {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Bottom Player */
+.bottom-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  background-color: #181818;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #282828;
+  z-index: 10;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+}
+
+.track-cover {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+.track-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.track-artist {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+}
+
+.player-btn {
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #b3b3b3;
+  transition: color 0.2s ease;
+}
+
+.player-btn:hover {
+  color: #1db954;
+}
+
+.audio-player {
+  width: 300px;
+  margin-left: 20px;
+}
+
+audio {
+  width: 100%;
+  height: 32px;
+  background-color: #282828;
+  border-radius: 4px;
+}
+
+/* Spotify-inspired button styling */
+button:focus {
+  outline: none;
+}
+
+/* Media Queries for responsiveness */
+
+/* Mobile screens */
+@media (max-width: 600px) {
+  .main {
+    margin-left: 0;
+    margin-top: 1rem;
+    padding: 10px;
   }
-  
-  .main h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+
+  .search-results,
+  .songs-container {
+    gap: 10px;
   }
-  
+
+  .song-item {
+    width: 100px;
+  }
+
+  .album-cover,
+  .song-item p {
+    font-size: 12px;
+  }
+
+  .bottom-player {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .audio-player {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .track-cover {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .main {
+    margin-left: 5rem;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
+  .song-item {
+    width: 120px;
+  }
+
+  .album-cover {
+    width: 120px;
+    height: 120px;
+  }
+
+  .audio-player {
+    width: 250px;
+  }
+}
+
+/* Laptops and desktops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .main {
+    margin-left: 12rem;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 50%;
+  }
+}
+
+/* Large screens (1440px and up) */
+@media (min-width: 1441px) {
+  .main {
+    margin-left: 26rem;
+  }
+
+  .search-input {
+    width: 40%;
+  }
+
+  .song-item {
+    width: 200px;
+  }
+
+  .album-cover {
+    width: 200px;
+    height: 200px;
+  }
+}

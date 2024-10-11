@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For redirection
 import './login.css';
 
 export const Login = (props) => {
@@ -6,6 +7,7 @@ export const Login = (props) => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate(); // Hook to navigate
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +31,12 @@ export const Login = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 setSuccessMessage('Login successful!');
-                console.log('Login successful:', data);
+                
+                // Assuming the response contains a token
+                localStorage.setItem('token', data.token); // Store the token in localStorage
+                
+                // Redirect to index page (or homepage)
+                navigate('/'); // '/' assumes your index page is at the root
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.error || 'Login failed. Please try again.');

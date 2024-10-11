@@ -1,31 +1,30 @@
+/* Mobile First Styles (default for smaller screens) */
 .background-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     height: 100vh;
     background-image: url('../assets/images/login.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding: 1rem; /* Add padding for smaller screens */
 }
 
 .form-container {
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 2rem;
-    width: 300px;
-    margin-right: 5%;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque on small screens */
+    padding: 1.5rem;
+    width: 90%; /* Full width on small screens */
+    max-width: 350px; /* Limit the max width */
+    margin: 0 auto; /* Center the form on small screens */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.error-message {
-    color: red;
-    margin-bottom: 10px;
-}
-
+.error-message,
 .success-message {
-    color: green;
     margin-bottom: 10px;
+    font-size: 1rem; /* Font size relative to screen */
 }
 
 .login-form label {
@@ -50,6 +49,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 button:hover {
@@ -63,4 +63,74 @@ button:hover {
     border: none;
     cursor: pointer;
     text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+/* Tablet and above (min-width: 768px) */
+@media (min-width: 768px) {
+    .background-container {
+        padding: 0;
+    }
+
+    .form-container {
+        padding: 2rem;
+        width: 80%;
+        max-width: 400px;
+        margin-right: 5%;
+        border-radius: 10px;
+    }
+
+    .login-form input {
+        padding: 12px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+
+    .link-btn {
+        font-size: 1rem;
+    }
+}
+
+/* Desktop and Laptops (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .background-container {
+        justify-content: flex-end; /* Align form to the right on large screens */
+    }
+
+    .form-container {
+        padding: 2.5rem;
+        width: 300px;
+        margin-right: 5%;
+    }
+
+    .login-form input {
+        padding: 14px;
+    }
+
+    button {
+        font-size: 1.2rem;
+    }
+
+    .link-btn {
+        font-size: 1.1rem;
+    }
+}
+
+/* Large screens, TVs (min-width: 1440px) */
+@media (min-width: 1440px) {
+    .form-container {
+        width: 400px;
+    }
+
+    button {
+        font-size: 1.3rem;
+        padding: 14px;
+    }
+
+    .login-form input {
+        padding: 16px;
+    }
 }

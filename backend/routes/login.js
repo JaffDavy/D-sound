@@ -28,4 +28,25 @@ router.post("/login", loginValidation, async (req, res, next) => {
     }
 });
 
+router.get('/api/user', (req, res) => {
+    const userId = req.session.userId; // Example of getting the user from session
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+  
+    // Query the database to get the user's data
+    db.query('SELECT fullname FROM users WHERE id = $1', [userId], (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error fetching user' });
+      }
+  
+      if (result.rows.length > 0) {
+        res.json({ name: result.rows[0].fullname });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    });
+  });
+  
+
 export default router;

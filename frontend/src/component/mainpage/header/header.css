@@ -1,21 +1,25 @@
+/* Base (mobile-first) styles */
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Space out items for mobile */
     align-items: center;
     background-color: #000;
     color: white;
-    padding: 10px 20px;
-    height: 5vh;
+    padding: 10px;
+    height: 8vh; /* Increase height for easier interaction on mobile */
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .header h1 {
-    font-size: 1.8rem;
+    font-size: 1.4rem; /* Smaller font size on mobile */
     font-weight: bold;
 }
 
 .header__search {
-    width: 30vw;
-    padding: 5px 10px;
+    width: 60vw; /* Wider input for mobile screens */
+    padding: 8px 12px; /* More padding for easier interaction */
     border-radius: 25px;
     border: none;
     background-color: #333;
@@ -23,8 +27,72 @@
 }
 
 .header__avatar {
-    width: 40px;
-    height: 40px;
+    width: 35px; /* Slightly smaller avatar on mobile */
+    height: 35px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+/* Tablet (min-width: 768px) */
+@media (min-width: 768px) {
+    .header {
+        justify-content: space-evenly; /* More even spacing on tablets */
+        padding: 10px 20px;
+        height: 7vh; /* Slightly smaller header height */
+    }
+
+    .header h1 {
+        font-size: 1.6rem; /* Increase font size for tablet */
+    }
+
+    .header__search {
+        width: 40vw; /* Adjust input width */
+        padding: 6px 10px;
+    }
+
+    .header__avatar {
+        width: 40px; /* Increase avatar size */
+        height: 40px;
+    }
+}
+
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .header {
+        height: 6vh; /* Reduce header height for desktop */
+    }
+
+    .header h1 {
+        font-size: 1.8rem; /* Larger font size */
+    }
+
+    .header__search {
+        width: 30vw; /* Original input width for desktop */
+        padding: 5px 10px;
+    }
+
+    .header__avatar {
+        width: 45px; /* Larger avatar */
+        height: 45px;
+    }
+}
+
+/* Large screens (min-width: 1440px) */
+@media (min-width: 1440px) {
+    .header {
+        height: 5vh; /* Smaller header height for large screens */
+    }
+
+    .header h1 {
+        font-size: 2rem; /* Larger font size for large screens */
+    }
+
+    .header__search {
+        width: 25vw; /* Adjust input width */
+    }
+
+    .header__avatar {
+        width: 50px; /* Larger avatar */
+        height: 50px;
+    }
 }
