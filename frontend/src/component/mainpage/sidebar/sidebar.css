@@ -1,6 +1,6 @@
 .sidebar {
   height: 100vh;
-  width: 10vw;
+  width: 12vw;
   background-color: #040404;
   color: white;
   padding: 20px;
@@ -53,8 +53,9 @@
 /* Laptops and desktops */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .sidebar {
-    width: 15vw; /* Slightly larger width for laptops/desktops */
+    width: 12vw; /* Slightly larger width for laptops/desktops */
     padding: 20px;
+    margin-top: 2rem;
   }
 
   .sidebar ul li {
@@ -67,10 +68,12 @@
 @media (min-width: 1441px) {
   .sidebar {
     width: 12vw; /* Original width for large screens */
+    font-size: 3rem;
+    margin-top: 1rem;
   }
 
   .sidebar ul li {
-    padding: 12px;
-    font-size: 18px;
+    padding: 3rem;
+    font-size: 2rem;
   }
 }

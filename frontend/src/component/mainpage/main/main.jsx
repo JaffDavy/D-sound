@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
+import { useNavigate } from 'react-router-dom';
 import './main.css';
 
 function Main() {
@@ -11,12 +11,12 @@ function Main() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(null);
   const audioRef = useRef(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate(); // For navigation
 
-  // Function to check if user is logged in (check token, session, etc.)
+  // Function to check if user is logged in
   const checkUserLoggedIn = () => {
-    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
     } else {
@@ -172,113 +172,115 @@ function Main() {
 
   return (
     <div className="main">
-      <h2>Discover Weekly</h2>
+      <div className='in'>
+        <h2>Discover Weekly</h2>
 
-      {/* Search Field */}
-      <input
-        type="text"
-        placeholder="Search for songs or artists"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="search-input"
-      />
+        {/* Search Field */}
+        <input
+          type="text"
+          placeholder="Search for songs or artists"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-input"
+        />
+        </div>
 
-      {/* Search Results */}
-      {searchResults.length > 0 && (
-        <div className="search-results">
-          {searchResults.map((track, index) => (
-            <div
-              key={track.id}
-              className="search-result-item"
-              onClick={() => playSong(track, index)}
-            >
+        {/* Search Results */}
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            {searchResults.map((track, index) => (
+              <div
+                key={track.id}
+                className="search-result-item"
+                onClick={() => playSong(track, index)}
+              >
+                <img
+                  src={track.album.images[0].url}
+                  alt={track.name}
+                  className="search-result-cover"
+                />
+                <div className="search-result-details">
+                  <p className="search-result-name">{track.name}</p>
+                  <p className="search-result-artist">{track.artists[0].name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Main Songs (Discover Weekly) */}
+        <div className="songs-container">
+          {songs.length > 0 ? (
+            songs.map((song, index) => (
+              <div
+                key={index}
+                className="song-item"
+                onClick={() => playSong(song.track, index)}
+              >
+                <img
+                  src={song.track.album.images[0].url}
+                  alt={song.track.name}
+                  className="album-cover"
+                />
+                <p>{song.track.name} by {song.track.artists[0].name}</p>
+              </div>
+            ))
+          ) : (
+            <p>Loading songs...</p>
+          )}
+        </div>
+
+        {/* Bottom Player */}
+        {currentTrack && (
+          <div className="bottom-player">
+            <div className="track-info">
               <img
-                src={track.album.images[0].url}
-                alt={track.name}
-                className="search-result-cover"
+                src={currentTrack.album.images[0].url}
+                alt={currentTrack.name}
+                className="track-cover"
               />
-              <div className="search-result-details">
-                <p className="search-result-name">{track.name}</p>
-                <p className="search-result-artist">{track.artists[0].name}</p>
+              <div>
+                <p className="track-name">{currentTrack.name}</p>
+                <p className="track-artist">{currentTrack.artists[0].name}</p>
               </div>
             </div>
-          ))}
-        </div>
-      )}
 
-      {/* Main Songs (Discover Weekly) */}
-      <div className="songs-container">
-        {songs.length > 0 ? (
-          songs.map((song, index) => (
-            <div
-              key={index}
-              className="song-item"
-              onClick={() => playSong(song.track, index)}
-            >
-              <img
-                src={song.track.album.images[0].url}
-                alt={song.track.name}
-                className="album-cover"
-              />
-              <p>{song.track.name} by {song.track.artists[0].name}</p>
+            <div className="player-controls">
+              <button className="player-btn" onClick={playPrevious}>
+                &#9664; {/* Previous button */}
+              </button>
+              {isPlaying ? (
+                <button className="player-btn" onClick={stopSong}>
+                  Pause
+                </button>
+              ) : (
+                <button className="player-btn" onClick={() => playSong(currentTrack, currentSongIndex)}>
+                  Play
+                </button>
+              )}
+              <button className="player-btn" onClick={playNext}>
+                &#9654; {/* Next button */}
+              </button>
             </div>
-          ))
-        ) : (
-          <p>Loading songs...</p>
+
+            {/* Audio Player */}
+            <div className="audio-player">
+              {currentTrack.preview_url ? (
+                <audio
+                  ref={audioRef}
+                  src={currentTrack.preview_url}
+                  onEnded={handleTrackEnd}
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <p>No preview available for this track</p>
+              )}
+            </div>
+          </div>
         )}
       </div>
-
-      {/* Bottom Player */}
-      {currentTrack && (
-        <div className="bottom-player">
-          <div className="track-info">
-            <img
-              src={currentTrack.album.images[0].url}
-              alt={currentTrack.name}
-              className="track-cover"
-            />
-            <div>
-              <p className="track-name">{currentTrack.name}</p>
-              <p className="track-artist">{currentTrack.artists[0].name}</p>
-            </div>
-          </div>
-
-          <div className="player-controls">
-            <button className="player-btn" onClick={playPrevious}>
-              &#9664; {/* Previous button */}
-            </button>
-            {isPlaying ? (
-              <button className="player-btn" onClick={stopSong}>
-                Pause
-              </button>
-            ) : (
-              <button className="player-btn" onClick={() => playSong(currentTrack, currentSongIndex)}>
-                Play
-              </button>
-            )}
-            <button className="player-btn" onClick={playNext}>
-              &#9654; {/* Next button */}
-            </button>
-          </div>
-
-          {/* Audio Player */}
-          <div className="audio-player">
-            {currentTrack.preview_url ? (
-              <audio
-                ref={audioRef}
-                src={currentTrack.preview_url}
-                onEnded={handleTrackEnd}
-                controls
-                autoPlay
-              />
-            ) : (
-              <p>No preview available for this track</p>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
+      );
 }
 
-export default Main;
+      export default Main;

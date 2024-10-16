@@ -11,36 +11,34 @@
   overflow-y: auto;
 }
 
-/* Media Queries for responsiveness */
-
 /* Mobile screens */
 @media (max-width: 600px) {
   .app {
-    flex-direction: column; /* Stack everything vertically */
+    flex-direction: column;
   }
 
   .app__body {
-    flex-direction: column; /* Stack content vertically on small screens */
+    flex-direction: column;
   }
 }
 
 /* Tablets */
 @media (min-width: 601px) and (max-width: 1024px) {
   .app__body {
-    flex-direction: row; /* Keep content side-by-side on tablets */
+    flex-direction: row;
   }
 }
 
 /* Laptops and desktops */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .app__body {
-    flex-direction: row; /* Normal side-by-side layout for larger screens */
+    flex-direction: row;
   }
 }
 
 /* Large screens (1441px and up) */
 @media (min-width: 1441px) {
   .app__body {
-    flex-direction: row; /* Maintain the layout for larger screens */
+    flex-direction: row;
   }
 }
