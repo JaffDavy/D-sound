@@ -1,16 +1,15 @@
-import pkg from 'pg'; // Import the 'pg' module as a default import
-const { Pool } = pkg; // Destructure Pool from the imported package
+import pkg from 'pg';
+const { Pool } = pkg;
 import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variables
+dotenv.config();
 
 // Configure the connection pool
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // Use DATABASE_URL if available
-  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false, // Conditional SSL for Render
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
 });
 
-// Test the connection
 pool
   .connect()
   .then(() => {

@@ -42,7 +42,7 @@ export const Registration = (props) => {
         }
 
         try {
-            const response = await fetch('https://d-sound-1.onrender.com/registration/registration', {
+            const response = await fetch('http://localhost:5000/registration/registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
