@@ -20,7 +20,7 @@ export const Login = (props) => {
         }
 
         try {
-            const response = await fetch('https://d-sound-1.onrender.com/login', {
+            const response = await fetch('https://d-sound-1.onrender.com/login/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
