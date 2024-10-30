@@ -42,13 +42,14 @@ export const Registration = (props) => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/registration/registration', {
+            const response = await fetch('https://d-sound-1.onrender.com/registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password, username }),
             });
+
 
             if (!response.ok) {
                 const errorData = await response.json();
@@ -57,7 +58,7 @@ export const Registration = (props) => {
             }
 
             setSuccessMessage('Registration successful! Redirecting to Home page...');
-            
+
             setTimeout(() => {
                 navigate('/login');
             }, 1500);

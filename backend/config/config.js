@@ -1,22 +1,34 @@
-import pkg from 'pg';
-const { Pool } = pkg;
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import express from 'express';
+import dotenv from 'dotenv';
+import loginRouter from '../routes/login.js';
 
 dotenv.config();
 
-// Configure the connection pool
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
-});
+const app = express();
 
-pool
-  .connect()
-  .then(() => {
-    console.log("Connected to the database successfully");
-  })
-  .catch((err) => {
-    console.error("Error connecting to the database:", err);
-  });
+// Middleware
+app.use(express.json());
 
-export default pool;
+// Connect to MongoDB
+const connectToMongoDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URL);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error.message);
+    }
+};
+
+export default connectToMongoDB;
+
+// Call the function to connect to MongoDB
+connectToMongoDB();
+
+// Use routes
+app.use('/login', loginRouter); // Mount your routes correctly
+
+// const PORT = process.env.PORT || 5000; // Ensure the port is set
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });

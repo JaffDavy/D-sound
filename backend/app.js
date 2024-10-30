@@ -5,7 +5,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'; 
 import loginRouter from './routes/login.js';
 import registrationRouter from './routes/registration.js';
-import pool from './config/config.js';
+// import pool from './config/config.js';
+import connectToMongoDB from './config/config.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -38,12 +39,13 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
+  connectToMongoDB()
   console.log(`Server running on port ${PORT}`);
 });
 
-pool.connect()
-  .then(() => console.log('Connected to the database'))
-  .catch(err => console.error('Database connection error:', err));
+// pool.connect()
+//   .then(() => console.log('Connected to the database'))
+//   .catch(err => console.error('Database connection error:', err));
 
 
 export default app;

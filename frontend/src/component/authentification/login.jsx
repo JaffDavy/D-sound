@@ -20,7 +20,7 @@ export const Login = (props) => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/login/login', {
+            const response = await fetch('https://d-sound-1.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,10 +31,10 @@ export const Login = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 setSuccessMessage('Login successful!');
-                
+
                 // Assuming the response contains a token
                 localStorage.setItem('token', data.token); // Store the token in localStorage
-                
+
                 // Redirect to index page (or homepage)
                 navigate('/'); // '/' assumes your index page is at the root
             } else {

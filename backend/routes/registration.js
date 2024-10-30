@@ -2,8 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import pool from "../config/config.js";
 import registrationValidation from "../utils/registrationValidation.js";
+import User from "../models/User.js";
 
 dotenv.config();
 
@@ -17,28 +17,27 @@ router.post("/registration", registrationValidation, async (req, res, next) => {
 
     try {
         // Check if the user already exists
-        const userCheckQuery = "SELECT * FROM users WHERE email = $1";
-        const existingUsers = await pool.query(userCheckQuery, [email]);
-
-        if (existingUsers.rows.length > 0) {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
             return res.status(401).json({ error: "User already exists, please login" });
         }
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const createdAt = new Date();
 
-        const result = await pool.query(
-            "INSERT INTO users (username, password, email, created_at) VALUES ($1, $2, $3, $4) RETURNING *",
-            [username, hashedPassword, email, createdAt]
-        );
-
-        const user = result.rows[0];
-        delete user.password;
+        // Create and save the new user
+        const newUser = new User({
+            username,
+            password: hashedPassword,
+            email,
+        });
+        
+        const savedUser = await newUser.save();
+        savedUser.password = undefined; 
 
         res.status(201).json({
             message: "Registration successful",
-            user,
+            user: savedUser,
         });
     } catch (err) {
         next(err);
