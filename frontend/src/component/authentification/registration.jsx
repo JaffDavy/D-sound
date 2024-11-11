@@ -8,6 +8,7 @@ export const Registration = (props) => {
     const [username, setUserName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Loading state
     const navigate = useNavigate(); // Initialize navigate
 
     // Function to validate password strength
@@ -34,10 +35,12 @@ export const Registration = (props) => {
         e.preventDefault();
         setErrorMessage('');
         setSuccessMessage('');
+        setIsLoading(true); // Start loading
 
         const passwordValidationMessage = validatePassword(password);
         if (passwordValidationMessage) {
             setErrorMessage(passwordValidationMessage);
+            setIsLoading(false); // Stop loading
             return;
         }
 
@@ -50,20 +53,22 @@ export const Registration = (props) => {
                 body: JSON.stringify({ email, password, username }),
             });
 
-
             if (!response.ok) {
                 const errorData = await response.json();
                 setErrorMessage(errorData.error || 'An error occurred. Please try again.');
+                setIsLoading(false); // Stop loading
                 return;
             }
 
             setSuccessMessage('Registration successful! Redirecting to Home page...');
+            setIsLoading(false); // Stop loading
 
             setTimeout(() => {
                 navigate('/login');
             }, 1500);
         } catch (error) {
             setErrorMessage('An error occurred. Please try again.');
+            setIsLoading(false); // Stop loading
         }
     };
 
@@ -73,16 +78,47 @@ export const Registration = (props) => {
                 <h2>Register</h2>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
-                <form className="register-form" onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username</label>
-                    <input value={username} name="username" onChange={(e) => setUserName(e.target.value)} id="username" placeholder="Username" required />
-                    <label htmlFor="email">Email</label>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" required />
-                    <label htmlFor="password">Password</label>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" id="password" name="password" required />
-                    <button type="submit">Register</button>
-                </form>
-                <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
+                
+                {isLoading ? ( // Show loading indicator when isLoading is true
+                    <p className="loading-message">Processing...</p>
+                ) : (
+                    <form className="register-form" onSubmit={handleSubmit}>
+                        <label htmlFor="username">Username</label>
+                        <input 
+                            value={username} 
+                            name="username" 
+                            onChange={(e) => setUserName(e.target.value)} 
+                            id="username" 
+                            placeholder="Username" 
+                            required 
+                        />
+                        <label htmlFor="email">Email</label>
+                        <input 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                            type="email" 
+                            placeholder="youremail@gmail.com" 
+                            id="email" 
+                            name="email" 
+                            required 
+                        />
+                        <label htmlFor="password">Password</label>
+                        <input 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            type="password" 
+                            placeholder="password" 
+                            id="password" 
+                            name="password" 
+                            required 
+                        />
+                        <button type="submit">Register</button>
+                    </form>
+                )}
+
+                <button className="link-btn" onClick={() => props.onFormSwitch('login')}>
+                    Already have an account? Login here.
+                </button>
             </div>
         </div>
     );

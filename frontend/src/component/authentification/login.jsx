@@ -7,15 +7,18 @@ export const Login = (props) => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Loading state
     const navigate = useNavigate(); // Hook to navigate
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
         setSuccessMessage('');
+        setIsLoading(true); // Start loading
 
         if (!email || !password) {
             setErrorMessage('Email and password are required');
+            setIsLoading(false); // Stop loading
             return;
         }
 
@@ -31,12 +34,8 @@ export const Login = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 setSuccessMessage('Login successful!');
-
-                // Assuming the response contains a token
                 localStorage.setItem('token', data.token); // Store the token in localStorage
-
-                // Redirect to index page (or homepage)
-                navigate('/'); // '/' assumes your index page is at the root
+                navigate('/'); // Redirect to index page
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.error || 'Login failed. Please try again.');
@@ -44,6 +43,8 @@ export const Login = (props) => {
         } catch (error) {
             setErrorMessage('An error occurred. Please try again.');
             console.error('Error:', error.message);
+        } finally {
+            setIsLoading(false); // Stop loading after request is complete
         }
     };
 
@@ -53,29 +54,35 @@ export const Login = (props) => {
                 <h2>Login</h2>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="email"
-                        placeholder="youremail@gmail.com"
-                        id="email"
-                        name="email"
-                        required
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        placeholder="password"
-                        id="password"
-                        name="password"
-                        required
-                    />
-                    <button type="submit">Log In</button>
-                </form>
+                
+                {isLoading ? ( // Show loading indicator when isLoading is true
+                    <p className="loading-message">Processing...</p>
+                ) : (
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            placeholder="youremail@gmail.com"
+                            id="email"
+                            name="email"
+                            required
+                        />
+                        <label htmlFor="password">Password</label>
+                        <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            placeholder="password"
+                            id="password"
+                            name="password"
+                            required
+                        />
+                        <button type="submit">Log In</button>
+                    </form>
+                )}
+                
                 <button className="link-btn" onClick={() => props.onFormSwitch('register')}>
                     Don't have an account? Register here.
                 </button>
